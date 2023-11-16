@@ -1,9 +1,8 @@
 name: Monthly issue metrics
 on:
-  pull_request:
-    workflow_dispatch:
-    schedule:
-      - cron: '3 2 1 * *'
+  workflow_dispatch:
+  schedule:
+    - cron: '3 2 1 * *'
 
 permissions:
   issues: write
@@ -36,6 +35,6 @@ jobs:
     - name: Create issue
       uses: peter-evans/create-issue-from-file@v4
       with:
-        title: Monthly issue metrics report SBC Hub
+        title: Monthly issue metrics report Entity
         token: ${{ secrets.GH_TOKEN }}
         content-filepath: ./issue_metrics.md
