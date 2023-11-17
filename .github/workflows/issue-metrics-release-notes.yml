@@ -26,13 +26,13 @@ jobs:
         #Set an environment variable with the date range
         echo "$first_day..$last_day"
         echo "last_month=$first_day..$last_day" >> "$GITHUB_ENV"
+        echo "labels=enhancement" >> "$GITHUB_ENV"
 
     - name: Run issue-metrics tool
       uses: github/issue-metrics@v2
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        LABELS_TO_MEASURE: 'enhancement'
-        SEARCH_QUERY: 'repo:bcgov/sbchub is:issue created:${{ env.last_month }} -reason:"not planned"'
+        SEARCH_QUERY: 'repo:bcgov/sbchub is:issue label:${{ env.labels }} created:${{ env.last_month }} -reason:"not planned"'
 
     - name: Create issue
       uses: peter-evans/create-issue-from-file@v4
