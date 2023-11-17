@@ -31,7 +31,7 @@ jobs:
       uses: github/issue-metrics@v2
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        SEARCH_QUERY: 'repo:bcgov/sbc-producthub is:issue created:${{ env.last_month }} label:"bug"'
+        SEARCH_QUERY: 'repo:bcgov/sbc-producthub is:issue created:${{ env.last_month }}'
 
     - name: Create issue
       uses: peter-evans/create-issue-from-file@v4
