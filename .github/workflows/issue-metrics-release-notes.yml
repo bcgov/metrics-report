@@ -1,4 +1,4 @@
-name: Monthly issue metrics Entity
+name: Monthly issue metrics Release Note
 on:
   pull_request:
     workflow_dispatch:
@@ -31,7 +31,7 @@ jobs:
       uses: github/issue-metrics@v2
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        SEARCH_QUERY: 'repo:bcgov/sbchub is:issue created:${{ env.last_month }} -reason:"not planned"'
+        SEARCH_QUERY: 'repo:bcgov/sbc-producthub is:issue created:${{ env.last_month }} label:"bug"'
 
     - name: Create issue
       uses: peter-evans/create-issue-from-file@v4
