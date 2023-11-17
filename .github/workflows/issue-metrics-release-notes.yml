@@ -1,6 +1,6 @@
 name: Monthly issue metrics Entity
 on:
-  pull_requet:
+  pull_request:
     workflow_dispatch:
     schedule:
       - cron: '3 2 1 * *'
