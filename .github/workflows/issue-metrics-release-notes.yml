@@ -32,7 +32,7 @@ jobs:
       uses: github/issue-metrics@v2
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        SEARCH_QUERY: 'repo:bcgov/sbchub is:issue label:${{ env.labels }} created:${{ env.last_month }} -reason:"not planned"'
+        SEARCH_QUERY: 'repo:bcgov/sbchub is:issue label:"bug" created:${{ env.last_month }} -reason:"not planned"'
 
     - name: Create issue
       uses: peter-evans/create-issue-from-file@v4
