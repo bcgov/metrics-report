@@ -31,7 +31,7 @@ jobs:
       uses: github/issue-metrics@v2
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        LABELS_TO_MEASURE: 'waiting-for-manager-approval,waiting-for-security-review'
+        LABELS_TO_MEASURE: 'enhancement'
         SEARCH_QUERY: 'repo:bcgov/sbchub is:issue created:${{ env.last_month }} -reason:"not planned"'
 
     - name: Create issue
