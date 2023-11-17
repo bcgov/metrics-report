@@ -1,0 +1,48 @@
+name: Monthly issue metrics Name Request
+on:
+  pull_request:
+    workflow_dispatch:
+    schedule:
+      - cron: '3 2 1 * *'
+
+permissions:
+  issues: write
+  pull-requests: read
+
+jobs:
+  build:
+    name: issue metrics
+    runs-on: ubuntu-latest
+    steps:
+    - name: Get dates for last month
+      shell: bash
+      run: |
+        # Calculate the first day of the previous month
+        first_day=$(date -d "last month" +%Y-%m-01)
+
+        # Calculate the last day of the previous month
+        last_day=$(date -d "$first_day +1 month -1 day" +%Y-%m-%d)
+
+        # 2 weeks ago
+        # Calculate the first day of 2 weeks ago
+        first_day_two_weeks_ago=$(date -d "2 weeks ago" +%Y-%m-%d)
+        yesterday=$(date -d "yesterday" +%Y-%m-%d)
+        echo "$first_day_two_weeks_ago..$yesterday"
+        echo "two_weeks=$first_day_two_weeks_ago..$yesterday" >> "$GITHUB_ENV"
+
+        #Set an environment variable with the date range
+        echo "$first_day..$last_day"
+        echo "last_month=$first_day..$last_day" >> "$GITHUB_ENV"
+
+    - name: Run issue-metrics tool
+      uses: github/issue-metrics@v2
+      env:
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        SEARCH_QUERY: 'repo:bcgov/namerequest is:issue created:${{ env.two_weeks }}'
+
+    - name: Create issue
+      uses: peter-evans/create-issue-from-file@v4
+      with:
+        title: Monthly issue metrics report Name Request
+        token: ${{ secrets.GH_TOKEN }}
+        content-filepath: ./issue_metrics.md
