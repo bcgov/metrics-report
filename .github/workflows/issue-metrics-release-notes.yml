@@ -28,6 +28,7 @@ jobs:
         first_day_two_weeks_ago=$(date -d "2 weeks ago" +%Y-%m-%d)
         yesterday=$(date -d "yesterday" +%Y-%m-%d)
         echo "$first_day_two_weeks_ago..$yesterday"
+        echo "two_weeks=$first_day_two_weeks_ago..$yesterday" >> "$GITHUB_ENV"
 
         #Set an environment variable with the date range
         echo "$first_day..$last_day"
@@ -37,7 +38,7 @@ jobs:
       uses: github/issue-metrics@v2
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        SEARCH_QUERY: 'repo:bcgov/sbc-producthub is:issue created:${{ env.last_month }}'
+        SEARCH_QUERY: 'repo:bcgov/sbc-producthub is:issue created:${{ env.two_weeks }}'
 
     - name: Create issue
       uses: peter-evans/create-issue-from-file@v4
