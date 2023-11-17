@@ -23,6 +23,12 @@ jobs:
         # Calculate the last day of the previous month
         last_day=$(date -d "$first_day +1 month -1 day" +%Y-%m-%d)
 
+        # 2 weeks ago
+        # Calculate the first day of 2 weeks ago
+        first_day_two_weeks_ago=$(date -d "2 weeks ago" +%Y-%m-%d)
+        yesterday=$(date -d "yesterday" +%Y-%m-%d)
+        echo "$first_day_two_weeks_ago..$yesterday"
+
         #Set an environment variable with the date range
         echo "$first_day..$last_day"
         echo "last_month=$first_day..$last_day" >> "$GITHUB_ENV"
