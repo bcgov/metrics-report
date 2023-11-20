@@ -35,6 +35,7 @@ jobs:
         echo "last_month=$first_day..$last_day" >> "$GITHUB_ENV"
 
     - name: Run issue-metrics tool
+      id: issue-metrics
       uses: github/issue-metrics@v2
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
@@ -47,4 +48,4 @@ jobs:
     #     token: ${{ secrets.GH_TOKEN }}
     #     content-filepath: ./issue_metrics.md
     - name: Print output of issue metrics tool
-      run: cat "${{ steps.issue-metrics.outputs.metrics }}"
+      run: echo "${{ steps.issue-metrics.outputs.metrics }}"
