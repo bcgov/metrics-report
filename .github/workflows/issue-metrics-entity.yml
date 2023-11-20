@@ -39,13 +39,16 @@ jobs:
       uses: github/issue-metrics@v2
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        SEARCH_QUERY: 'repo:bcgov/sbc-producthub is:issue created:${{ env.two_weeks }}'
+        SEARCH_QUERY: 'repo:bcgov/entity is:issue created:${{ env.two_weeks }}'
 
-    # - name: Create issue
-    #   uses: peter-evans/create-issue-from-file@v4
-    #   with:
-    #     title: Monthly issue metrics report Entity
-    #     token: ${{ secrets.GH_TOKEN }}
-    #     content-filepath: ./issue_metrics.md
-    - name: Print output of issue metrics tool
-      run: echo "${{ steps.issue-metrics.outputs.metrics }}"
+    - name: Create issue
+      uses: peter-evans/create-issue-from-file@v4
+      with:
+        title: Monthly issue metrics report Entity
+        token: ${{ secrets.GH_TOKEN }}
+        content-filepath: ./issue_metrics.md
+        labels: |
+            Metrics
+            Entity
+    # - name: Print output of issue metrics tool
+    #   run: echo "${{ steps.issue-metrics.outputs.metrics }}"
