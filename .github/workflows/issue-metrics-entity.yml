@@ -39,6 +39,7 @@ jobs:
       uses: github/issue-metrics@v2
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        LABELS_TO_MEASURE: 'ENTITIES'
         SEARCH_QUERY: 'repo:bcgov/entity is:issue closed:${{ env.two_weeks }}'
 
     - name: Create issue
