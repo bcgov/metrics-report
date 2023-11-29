@@ -26,9 +26,9 @@ jobs:
         # 2 weeks ago
         # Calculate the first day of 2 weeks ago
         first_day_two_weeks_ago=$(date -d "2 weeks ago" +%Y-%m-%d)
-        yesterday=$(date -d "yesterday" +%Y-%m-%d)
-        echo "$first_day_two_weeks_ago..$yesterday"
-        echo "two_weeks=$first_day_two_weeks_ago..$yesterday" >> "$GITHUB_ENV"
+        today=$(date -d "today" +%Y-%m-%d)
+        echo "$first_day_two_weeks_ago..$today"
+        echo "two_weeks=$first_day_two_weeks_ago..$today" >> "$GITHUB_ENV"
 
         #Set an environment variable with the date range
         echo "$first_day..$last_day"
