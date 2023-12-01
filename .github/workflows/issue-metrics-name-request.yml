@@ -1,9 +1,9 @@
-name: Monthly issue metrics Entity
+name: Monthly issue metrics Name Request
 on:
-  pull_request:
-    workflow_dispatch:
-    schedule:
-      - cron: '3 2 1 * *'
+  # pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: '3 2 1 * *'
 
 permissions:
   issues: write
@@ -26,29 +26,23 @@ jobs:
         # 2 weeks ago
         # Calculate the first day of 2 weeks ago
         first_day_two_weeks_ago=$(date -d "2 weeks ago" +%Y-%m-%d)
-        today=$(date -d "today" +%Y-%m-%d)
-        echo "$first_day_two_weeks_ago..$today"
-        echo "two_weeks=$first_day_two_weeks_ago..$today" >> "$GITHUB_ENV"
+        yesterday=$(date -d "yesterday" +%Y-%m-%d)
+        echo "$first_day_two_weeks_ago..$yesterday"
+        echo "two_weeks=$first_day_two_weeks_ago..$yesterday" >> "$GITHUB_ENV"
 
         #Set an environment variable with the date range
         echo "$first_day..$last_day"
         echo "last_month=$first_day..$last_day" >> "$GITHUB_ENV"
 
     - name: Run issue-metrics tool
-      id: issue-metrics
       uses: github/issue-metrics@v2
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        SEARCH_QUERY: 'repo:bcgov/entity is:issue label:"ENTITY" closed:${{ env.two_weeks }}'
+        SEARCH_QUERY: 'repo:bcgov/namerequest is:issue created:${{ env.two_weeks }}'
 
     - name: Create issue
       uses: peter-evans/create-issue-from-file@v4
       with:
-        title: Monthly issue metrics report Entity
+        title: Monthly issue metrics report Name Request
         token: ${{ secrets.GH_TOKEN }}
         content-filepath: ./issue_metrics.md
-        labels: |
-            Metrics
-            Entity
-    # - name: Print output of issue metrics tool
-    #   run: echo "${{ steps.issue-metrics.outputs.metrics }}"
