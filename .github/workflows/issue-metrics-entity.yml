@@ -42,7 +42,7 @@ jobs:
         SEARCH_QUERY: 'repo:bcgov/entity is:issue label:"Relationships" closed:${{ env.two_weeks }}'
 
     - name: Print output of issue metrics tool
-      run: printf "%s" "${{ steps.issue-metrics.outputs.metrics }}"
+      run: 'printf "%s" "${{ steps.issue-metrics.outputs.metrics }}"'
 
     # - name: Create issue
     #   uses: peter-evans/create-issue-from-file@v4
