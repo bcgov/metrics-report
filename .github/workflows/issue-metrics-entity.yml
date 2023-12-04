@@ -38,17 +38,17 @@ jobs:
       id: issue-metrics
       uses: github/issue-metrics@v2
       env:
-        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        # GH_TOKEN: ${{ secrets.GH_TOKEN }}
         SEARCH_QUERY: 'repo:bcgov/entity is:issue label:"ENTITY" closed:${{ env.two_weeks }}'
 
-    # - name: Create issue
-    #   uses: peter-evans/create-issue-from-file@v4
-    #   with:
-    #     title: Monthly issue metrics report Entity
-    #     token: ${{ secrets.GH_TOKEN }}
-    #     content-filepath: ./issue_metrics.md
-    #     labels: |
-    #         Metrics
-    #         Entity
-    - name: Print output of issue metrics tool
-      run: echo "${{ steps.issue-metrics.outputs.metrics }}"
+    - name: Create issue
+      uses: peter-evans/create-issue-from-file@v4
+      with:
+        title: Monthly issue metrics report Entity
+        token: ${{ secrets.GH_TOKEN }}
+        content-filepath: ${{ steps.issue-metrics.outputs.metrics }}
+        labels: |
+            Metrics
+            Entity
+    # - name: Print output of issue metrics tool
+    #   run: echo "${{ steps.issue-metrics.outputs.metrics }}"
