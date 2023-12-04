@@ -41,12 +41,15 @@ jobs:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
         SEARCH_QUERY: 'repo:bcgov/entity is:issue label:"ENTITY" closed:${{ env.two_weeks }}'
 
+    - name: Print output of issue metrics tool
+      run: echo "${{ steps.issue-metrics.outputs.metrics }}" > entity-metric.json
+
     - name: Create issue
       uses: peter-evans/create-issue-from-file@v4
       with:
         title: Monthly issue metrics report Entity
         token: ${{ secrets.GH_TOKEN }}
-        content-filepath: ${{ steps.issue-metrics.outputs.metrics }}
+        content-filepath: ./entity-metric.json
         labels: |
             Metrics
             Entity
